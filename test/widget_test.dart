@@ -1,30 +1,27 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:f290_dsm_aula_05_abril_24/main.dart';
+import 'package:provider/provider.dart';
+import 'package:f290_dsm_aula_05_abril_24/App.dart'; // Ajuste o caminho conforme necessário
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('App launches and shows TheMovieDB title', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          // Adicione aqui os providers necessários para o teste, como mock ou dummy providers
+        ],
+        child: const MaterialApp(
+          home: App(),
+        ),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verifique se o título na AppBar é 'TheMovieDB', que é o esperado na HomePage.
+    expect(find.text('TheMovieDB'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Adicione aqui mais verificações conforme necessário, como verificar a existência de certos widgets.
   });
+
+  // Aqui você pode adicionar outros testes para diferentes partes do seu aplicativo.
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/movie_model.dart';
 import '../repositories/movie_repository_impl.dart';
-import '../widgets/rating_screen.dart';
+import 'movie_details.dart'; // Certifique-se de que esta página está importada
 
 class MovieSearchPage extends StatefulWidget {
   @override
@@ -11,13 +11,13 @@ class MovieSearchPage extends StatefulWidget {
 
 class _MovieSearchPageState extends State<MovieSearchPage> {
   final TextEditingController _searchController = TextEditingController();
-  List<MovieModel> _movies = [];
-  List<MovieModel> _filteredMovies = [];
+  List<MovieModel> _movies = []; // Lista completa de filmes
+  List<MovieModel> _filteredMovies = []; // Filmes filtrados
 
   @override
   void initState() {
     super.initState();
-    _loadMovies();
+    _loadMovies(); // Carregar os filmes na inicialização
   }
 
   void _loadMovies() async {
@@ -80,7 +80,7 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => RatingScreen(movie: movie),
+                  builder: (context) => MovieDetailsPage(movie: movie),
                 ),
               );
             },

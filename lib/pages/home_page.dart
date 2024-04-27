@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/movie_model.dart';
 import '../repositories/movie_repository_impl.dart';
-import '../widgets/rating_screen.dart';
-import 'movie_search_page.dart'; // Certifique-se de que esta importação está correta
+import 'movie_details.dart';
+import 'movie_search.dart'; // Certifique-se de que esta importação está correta
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => RatingScreen(movie: movie),
+                      builder: (context) => MovieDetailsPage(movie: movie),
                     ),
                   );
                 },

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 
 class HttpManager {
@@ -8,38 +7,30 @@ class HttpManager {
 
   HttpManager({required this.dio});
 
-  /** No metodo abaixo, nós iremos ter uma unica forma de disparar as requisições, informando o método a ser executado, os cabeçalhos e o corpo das requisições; além de tratar as exceções.
-  */
   Future<Map<String, dynamic>> sendRequest({
     required String url,
     required String method,
     Map? headers,
     Map? body,
   }) async {
-    final defaulHeaders = headers?.cast<String, String>() ?? {};
+    final defaultHeaders = headers?.cast<String, String>() ?? {};
     try {
       Response response = await dio.request(
         url,
-        options: Options(method: method, headers: defaulHeaders),
+        options: Options(method: method, headers: defaultHeaders),
         data: body,
       );
 
       return response.data;
     } on DioException catch (dioError) {
-      log('''Falha ao processar requisição. 
-        Tipo: $method. Endpoint: $url.''', error: dioError.message);
+      log('''Falha ao processar requisição.
+            Tipo: $method. Endpoint: $url.''', error: dioError.message);
       return dioError.response?.data ?? {};
     } catch (error) {
-      log('''Falha ao executar requisição. 
-        Tipo: $method. Endpoint: $url.''', error: error.toString());
+      log('''Falha ao executar requisição.
+            Tipo: $method. Endpoint: $url.''', error: error.toString());
       return {};
     }
-  }
-
-  Map<String, dynamic> getSimpleAuthHeader(String user, String password) {
-    return {
-      'Authorization': 'Basic ${base64Encode(utf8.encode("$user:$password"))}'
-    };
   }
 }
 
